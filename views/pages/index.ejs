@@ -1,0 +1,20 @@
+<%- include('../../views/partials/header.ejs')%>
+
+<h1 class="text-center mt-5 mb-3">Ingreso</h1>
+<div class="container w-25">
+
+    <form action="/login" method="post">
+        <div class="form-group px-0">
+            <input type="email" name="email" class="form-control" placeholder="ingrese su email">
+        </div>
+        <div class="form-group px-0">
+            <input type="password" name="password" class="form-control" placeholder="ingrese su password">
+        </div>
+        <a href="/olvide">Olvido su contraseña?</a>
+        <button type="submit" class="btn btn-danger btn-block">Ingreso</button>
+    </form>
+
+
+</div>
+
+<%- include('../../views/partials/footer.ejs')%>
