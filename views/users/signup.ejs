@@ -1,0 +1,21 @@
+<%- include('../../views/partials/header.ejs')%>
+<div class="col-9">
+    <div class="container p-3 w-50">
+        <h1 class="text-center mt-5 mb-3">Registrar</h1>
+        <form action="/signup" method="post">
+            <div class="form-group px-0">
+                <input type="text" name="nombre" class="form-control" placeholder="ingrese su nombre" required>
+            </div>
+            <div class="form-group px-0">
+                <input type="email" name="email" class="form-control" placeholder="ingrese su email" required>
+            </div>
+            <div class="form-group px-0">
+                <input type="password" name="password" class="form-control" placeholder="ingrese su password" required>
+            </div>
+            <button type="submit" class="btn btn-danger btn-block">Registrar</button>
+
+        </form>
+    </div>
+</div>
+
+<%- include('../../views/partials/footer.ejs')%>

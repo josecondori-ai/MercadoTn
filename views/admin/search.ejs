@@ -1,0 +1,27 @@
+<%- include('../../views/partials/header.ejs')%>
+<div class="col-9">
+    <div class="container p-3 w-100">
+        <h1 class="mt-5 mb-4">Buscar producto</h1>
+        <form action="/product/search" method="get">
+            <div class="row mt-5 justify-content-center d-flex">
+                <div class="col-6">
+                    <input type="text" class="form-control" name="sku" placeholder="ingrese el SKU">
+                </div>
+              </div>
+              <div class="justify-content-center d-flex mt-4">
+                <button id="fetchBtn" class="btn btn-danger w-25 py-2">Buscar Producto</button>
+            </div>
+        </form>
+        <div class="ml-5 text-left mt-5">
+            <span>Titulo:</span><span></span><br>
+            <span>Precio:</span><span></span><br>
+
+            <span>Stock:</span><span></span><br>
+
+            <span>Sku:</span><span></span><br>
+
+        </div>
+
+   </div>
+</div>        
+<%- include('../../views/partials/footer.ejs')%>

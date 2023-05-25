@@ -1,0 +1,17 @@
+<%- include('../../views/partials/header.ejs')%>
+<div class="col-9">
+    <div class="container p-3 w-100">
+        <h1 class="mt-5 mb-4">Actualziar usuario</h1>
+        <form action="/edit" method="post">
+            <div class="form-group px-0">
+                <input type="text" name="name" class="form-control" placeholder="ingrese su nombre">
+            </div>
+            <div class="form-group px-0">
+                <input type="email" name="email" class="form-control" placeholder="ingrese su email">
+            </div>
+            <button type="submit" class="btn btn-danger btn-block">Actualizar</button>
+
+        </form>
+    </div>
+</div>
+<%- include('../../views/partials/footer.ejs')%>

@@ -18,7 +18,7 @@ app.set('view engine','ejs')
 app.use(express.static('public'))
 
 app.get('/',(req,res)=>{
-    res.render('pages/index')
+    res.render('admin/search')
 })
 
 app.listen(3030,()=>{

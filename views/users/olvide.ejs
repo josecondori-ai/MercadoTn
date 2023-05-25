@@ -1,0 +1,16 @@
+<%- include('../../views/partials/header.ejs')%>
+
+    <div class="container p-3 w-50">
+        <h1 class="text-center mt-5 mb-3">Generar password</h1>
+        <div class="container w-25">
+                <form action="/olvide" method="post">
+                    <div class="form-group px-0">
+                        <input type="email" name="email" class="form-control" placeholder="ingrese su email">
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-block">enviar email</button>
+
+                </form>
+                <a class="float-right" href="/login">Regresar al login</a>
+        </div>
+    </div>
+    <%- include('../../views/partials/footer.ejs')%>
