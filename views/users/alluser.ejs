@@ -13,11 +13,12 @@
 
             </thead>
             <tbody>
+                <%usuarios.forEach(usuario=>{%>
                 <tr>
-                    <td>pepe</td> 
-                <td>pepe@gmail.com</td> 
+                    <td><%=usuario.nombre%></td> 
+                <td><%usuario.email%></td> 
                <td>
-                <a class="btn btn-primary" href="/edit">editar</a>  
+                <a class="btn btn-primary" href="/edit/<%=usuario.id%>">editar</a>  
                 <form action="/delete/user/" method="">
                     <button class="btn btn-danger ml-2">Eliminar</button>
                 </form>
@@ -25,6 +26,7 @@
             
             </td> 
             </tr>
+            <%})%>
             </tbody>
         </table>
     </div>
