@@ -3,8 +3,8 @@ const router=express.Router()
 
 import passport from 'passport'
 import crypto from 'crypto'
-//import async from 'async'
-//import nodemailer from 'nodemailer'
+import async from 'async'
+import nodemailer from 'nodemailer'
 
 //pedir el user modelo del db
 import User from '../models/usersmodel.js'
@@ -82,6 +82,13 @@ router.post('/signup',(req,res)=>{
    //userData.save()
    
 })
+
+
+router.post('/login',passport.authenticate('local',{
+    successRedirect:'/dashboard',
+    failureRedirect:'/login',
+    failureFlash:'email o contraseña incorrecta. Intente nuevamente'
+}))
 
 export default router
 
