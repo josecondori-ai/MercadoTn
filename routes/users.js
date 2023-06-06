@@ -25,7 +25,7 @@ router.get('/olvide',(req,res)=>{
 //  reveer en ejs
 router.get('/logout',(req,res)=>{
     req.logOut();
-    //mensaje para el usuario salio de la web
+    req.flash('success_msg','se salio de sesion ')
     res.redirect('/login')
 })
 
@@ -41,7 +41,7 @@ router.get('/alluser',(req,res)=>{
         res.render('users/alluser',{usuarios:usuarios})
     })
     .catch(error=>{
-        //mensaje sobre el error
+        req.flash('error_msg','ERROR:'+error)
         res.render('users/alluser')
     })
 })
