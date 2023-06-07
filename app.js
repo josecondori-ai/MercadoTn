@@ -9,7 +9,7 @@ import  MethodOverride  from 'method-override'
 import passport from 'passport'
 import morgan from 'morgan'
 import LocalStrategy from 'passport-local';
-
+import User from './models/usersmodel.js'
 import userRouter from './routes/users.js'
 
 
@@ -21,26 +21,27 @@ app.set('view engine','ejs')
 app.use(express.static('public'))
 
 
-app.use(flash())
+// app.use(flash())
 
 //configuracion del middlware global
-app.use((req,res)=>{
-    res.locals.success_msg=req.flash(('success_msg'))
-    res.locals.error_msg=req.flash(('error_msg'))
-    res.locals.error=req.flash(('error'))
-    res.locals.currentUser=req.user
-})
-// app.get('/',(req,res)=>{
-//     res.render('admin/search')
+// app.use((req,res)=>{
+//     res.locals.success_msg=req.flash(('success_msg'))
+//     res.locals.error_msg=req.flash(('error_msg'))
+//     res.locals.error=req.flash(('error'))
+//     res.locals.currentUser=req.user
 // })
 
+
+//rutas 
+app.use(userRouter)
+dotenv.config({path:'./config.env'})
+
 mongoose.connect('mongodb://localhost:27017/supermercadotn', {
+   
     
 }).then(con => {
     console.log('MongoDB Database connected successfully.');
 });
-app.use(userRouter)
-dotenv.config({path:'./config.env'})
 
 app.use(session({
     secret:'se logeo en mi aplicacion ',
@@ -50,13 +51,8 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
-passport.use(({user:'email'},User.authenticate()))
-//req.user
+// passport.use(({user:'email'},User.authenticate()))
 
-// mongoose.connect(process.env.DBMERCADO)
-//     .then(mensaje=>{
-//         console.log('mongo db se conecto')
-//     })
 
 
 

@@ -1,14 +1,16 @@
 import express from 'express'
 const router=express.Router()
 
-import passport from 'passport'
+// import passport from 'passport'
 import crypto from 'crypto'
 import async from 'async'
 import nodemailer from 'nodemailer'
 
 //pedir el user modelo del db
+// import User from '../models/usersmodel.js'
+
 import User from '../models/usersmodel.js'
-import mongoose from 'mongoose'
+
 
 
 
@@ -25,7 +27,7 @@ router.get('/olvide',(req,res)=>{
 //  reveer en ejs
 router.get('/logout',(req,res)=>{
     req.logOut();
-    req.flash('success_msg','se salio de sesion ')
+    // req.flash('success_msg','se salio de sesion ')
     res.redirect('/login')
 })
 
@@ -41,7 +43,7 @@ router.get('/alluser',(req,res)=>{
         res.render('users/alluser',{usuarios:usuarios})
     })
     .catch(error=>{
-        req.flash('error_msg','ERROR:'+error)
+        // req.flash('error_msg','ERROR:'+error)
         res.render('users/alluser')
     })
 })
@@ -61,34 +63,30 @@ User.findOne(buscarId)
 /*obtener rutas POST */
 
 router.post('/signup',(req,res)=>{
-   let{nombre,email,password}=  req.body
+   let {nombre , email, password}=  req.body;
 
    let userData={
-        nombre:nombre,
-        email:email
+        nombre : nombre,
+        email : email
    };
-   console.log(userData)
-   console.log(password)
+  
 
-   userData.save()
-//    User.register(userData,password,(error,user)=>{
-//         if(error){
-//             //mensaje
-//             res.redirect('/signup')
-//         }
-//         //mensaje ok
-//         res.redirect('/login')
-//    })
-   //userData.save()
+   User.register(userData,password,(error,user)=>{
+        if(error){
+            res.redirect('/signup')
+        }
+       
+        res.redirect('/login')
+   })
    
 })
 
 
-router.post('/login',passport.authenticate('local',{
-    successRedirect:'/dashboard',
-    failureRedirect:'/login',
-    failureFlash:'email o contraseña incorrecta. Intente nuevamente'
-}))
+// router.post('/login',passport.authenticate('local',{
+//     successRedirect:'/dashboard',
+//     failureRedirect:'/login',
+//     failureFlash:'email o contraseña incorrecta. Intente nuevamente'
+// }))
 
 export default router
 
