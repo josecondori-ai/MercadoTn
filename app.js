@@ -15,9 +15,16 @@ import userRouter from './routes/users.js'
 
 const app=express()
 
+//mostraria resultado de las peticiones en la consola o terminal
 app.use(morgan('dev'))
+
+//sirve para los formularios envio de informacion al node js
 app.use(bodyParser.urlencoded({extended:true}))
+
+//motor de plantilla
 app.set('view engine','ejs')
+
+
 app.use(express.static('public'))
 
 
@@ -32,10 +39,13 @@ app.use(express.static('public'))
 // })
 
 
-//rutas 
+//rutas  de usuarios
 app.use(userRouter)
+
+//configurar el .env para seguridad, datos sensibles
 dotenv.config({path:'./config.env'})
 
+//conexion de la base de datos
 mongoose.connect('mongodb://localhost:27017/supermercadotn', {
    
     
@@ -43,12 +53,14 @@ mongoose.connect('mongodb://localhost:27017/supermercadotn', {
     console.log('MongoDB Database connected successfully.');
 });
 
+//para las sesiones
 app.use(session({
     secret:'se logeo en mi aplicacion ',
     resave:true,
     saveUninitialized:true
 
 }))
+
 app.use(passport.initialize())
 app.use(passport.session())
 // passport.use(({user:'email'},User.authenticate()))

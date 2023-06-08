@@ -10,6 +10,7 @@ import nodemailer from 'nodemailer'
 // import User from '../models/usersmodel.js'
 
 import User from '../models/usersmodel.js'
+import { error } from 'console'
 
 
 
@@ -33,6 +34,10 @@ router.get('/logout',(req,res)=>{
 
 router.get('/signup',(req,res)=>{
     res.render('users/signup')
+})
+
+router.get('/password/change',(req,res)=>{
+    res.render('users/changepassword')
 })
 
 
@@ -81,6 +86,87 @@ router.post('/signup',(req,res)=>{
    
 })
 
+router.post('/password/change',(req,res)=>{
+   if(req.body.password!==req.body.confirmpassword) {
+    //mensaje no son iguales
+    res.redirect('/password/change')
+   }
+   User.findOne({email:req.user.email})
+   .then(user=>{
+        user.setPassword(req.body.password,error=>{
+            user.save()
+            .then(user=>{
+                //mensaje se cambio la contraseña
+                res.redirect('/password/change')
+            })
+            .catch(error=>{
+                //mensaje error
+                res.redirect('/password/change')
+            })
+        })
+   })
+
+ 
+
+})
+
+
+//olvide contraseña
+router.post('/olvide',(req,res)=>{
+    let recoveryPassword=''
+    async.waterfall([
+        (done)=>{
+            crypto.randomBytes(20,(error,buf)=>{
+                let token =buf.toString('hex')//0-9 y a-f
+                //[0x48,0x6c....]==>4878451cc87f
+                done(error,token)
+            })
+        },
+            (token,done)=>{
+                User.findOne({email:req.body.email})
+                .then(user=>{
+                    if(!user){
+                        //mensaje no existe el email
+                        res.redirect('/olvide')
+                    }
+                    user.resetPasswordToken=token
+                    user.resetPasswordExpires=Date.now() + 1800000// 1/2 hora
+                    user.save(error=>{
+                        done(error,token,user)
+                    })
+                    
+                    
+
+                })
+                .catch(error=>{
+                    //mensaje error
+                    res.redirect('/olvide')
+                })
+
+
+            },
+                (token,user)=>{
+                    let enviar=nodemailer.createTransport({
+                        service:'Gmail',
+                        auth:{
+                            user:'administradorempresa@gmail.com',
+                            pass:'12345'
+
+                        }
+                    })
+                    let mailOptions={
+                        to:user.mail,
+                        from:'administradorempresa@gmail.com',
+                        subject:'recobrar email',
+                        text:'por favor para recuperar tu contraseña ingresa a  y tenes que ingresar el siguiente password: \n',token,'recuerde que tiene menos de 30 minutos para cambiar'
+                    }//http://req.headers.host/reset/token
+                    enviar.sendMail(mailOptions,error=>{
+                        //mensaje ,se envio las intrucciones
+                        res.redirect('/olvide')
+                    })
+                }
+        ])
+})
 
 // router.post('/login',passport.authenticate('local',{
 //     successRedirect:'/dashboard',
