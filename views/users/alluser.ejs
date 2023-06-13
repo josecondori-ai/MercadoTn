@@ -21,8 +21,9 @@
                 <td><%usuario.email%></td> 
                <td>
                 <a class="btn btn-primary" href="/edit/<%=usuario.id%>">editar</a>  
-                <form action="/delete/user/" method="">
-                    <button class="btn btn-danger ml-2">Eliminar</button>
+                <form action="/delete/user/<%=usuario.id%>?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger ml-2">Eliminar</button>
                 </form>
                 
             

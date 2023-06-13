@@ -1,10 +1,10 @@
-import {Schema,model} from "mongoose";
+//import {Schema,model} from "mongoose";
 import mongoose from "mongoose";
 import passportLocalMongoose from 'passport-local-mongoose'
 
 
 
-let userScheme=new Schema({
+let userScheme=new mongoose.Schema({
     nombre: String,
     email: String,
     password:{
@@ -17,7 +17,7 @@ let userScheme=new Schema({
 
 // module.exports=mongoose.model('User',userScheme)
 userScheme.plugin(passportLocalMongoose,{usernameField:'email'})
-export default model('User',userScheme)
+export default mongoose.model('User',userScheme)
 
 /*version antes del ej6
  Importar

@@ -1,7 +1,9 @@
 <%- include('../../views/partials/header.ejs')%>
 <div class="col-9">
     <div class="container p-3 w-100">
-        <h1 class="mt-5 mb-4">Actualziar usuario</h1>
+        <h1 class="mt-5 mb-4">Actualizar usuario</h1>
+        <%- include('../../views/partials/mensajes.ejs')%>
+
         <form action="/edit" method="post">
             <div class="form-group px-0">
                 <input type="text" name="name" class="form-control" placeholder="ingrese su nombre">
